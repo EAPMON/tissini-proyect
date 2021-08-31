@@ -5,20 +5,26 @@
         <div class="row">
           <img class="logo img-fluid"  alt="Vue logo" src="../assets/logo-tissini.png">
         </div>
-          <!-- <HelloWorld /> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
   components: {
-   // HelloWorld
+  },
+
+  mounted (){
+      let credentials = {
+                    "mobilephone": "7865470213."
+                }
+        this.$.post('login/client', credentials)
+        .then(res => {
+            console.log(res.data);
+        })
   }
 }
 </script>
