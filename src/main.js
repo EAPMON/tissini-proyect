@@ -10,6 +10,7 @@ const baseURI = axios.create({
 });
 
 Vue.prototype.$ = baseURI; 
+Vue.prototype.$baseUrl = 'https://v3.tissini.app'
 Vue.config.productionTip = false
 
 new Vue({
