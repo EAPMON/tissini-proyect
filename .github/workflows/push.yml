@@ -1,0 +1,25 @@
+name: Deploy to hostinger
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v1
+      - name: Instalando node v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm install
+      - run: npm run build
+      - run: 'echo "$SSH_KEY" > key'
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
+      - run: sudo chmod 700 ./key
+      - name: Deploy to hostinger
+        run: rsync -rav -e "ssh -i ./key -p ${{ secrets.REMOTE_PORT }} -oStrictHostKeyChecking=no" --progress --exclude "node_modules" . ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.TARGET }}
