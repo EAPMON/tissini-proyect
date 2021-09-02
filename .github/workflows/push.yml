@@ -22,4 +22,4 @@ jobs:
           SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}
       - run: sudo chmod 700 ./key
       - name: Deploy to hostinger
-        run: rsync -rav -e "$PWD/dist" "ssh -i ./key -p ${{ secrets.REMOTE_PORT }} -oStrictHostKeyChecking=no" --progress --exclude "node_modules" . ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.TARGET }}
+        run: rsync -rav -e "/dist" "ssh -i ./key -p ${{ secrets.REMOTE_PORT }} -oStrictHostKeyChecking=no" --progress --exclude "node_modules" . ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.TARGET }}
